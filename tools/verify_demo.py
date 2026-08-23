@@ -1,0 +1,10 @@
+import sqlite3
+conn = sqlite3.connect("/var/kmediwell/kmediwell.db")
+c = conn.cursor()
+c.execute('SELECT COUNT(*) FROM Reservation WHERE Status="DONE"')
+print("DONE:", c.fetchone()[0])
+c.execute('SELECT COUNT(*) FROM Payment WHERE Status="COMPLETED"')
+print("COMPLETED:", c.fetchone()[0])
+c.execute('SELECT SUM(Amount) FROM Payment WHERE Status="COMPLETED"')
+print("TOTAL(man):", c.fetchone()[0]//10000)
+conn.close()
